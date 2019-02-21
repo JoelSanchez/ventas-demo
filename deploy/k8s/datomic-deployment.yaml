@@ -1,0 +1,33 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: datomic
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: ventas
+      tier: database
+  template:
+    metadata:
+      labels:
+        app: ventas
+        tier: database
+    spec:
+      containers:
+      - image: registry.gitlab.com/joelsanchez/ventas-demo/datomic
+        name: datomic
+        env:
+        - name: JAVA_OPTS
+          value: "-server -Xms1g -Xmx1g -XX:+UseG1GC" 
+        ports:
+        - containerPort: 4334
+        - containerPort: 4335
+        - containerPort: 4336
+        resources: {}
+      restartPolicy: Always
+      imagePullSecrets:
+        - name: gitlab
+status: {}

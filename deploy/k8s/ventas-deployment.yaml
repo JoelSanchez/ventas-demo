@@ -1,0 +1,84 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: ventas
+spec:
+  selector:
+    matchLabels:
+      app: ventas
+      tier: backend
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: ventas
+        tier: backend
+    spec:
+      containers:
+      - env:
+        - name: RESET_ON_RESTART
+          value: "true"
+        - name: AUTH_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: ventas
+              key: auth-secret
+        - name: DATABASE__URL
+          value: 'datomic:dev://datomic:4334/ventas'
+        - name: DATOMIC__PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: ventas
+              key: datomic-password
+        - name: DATOMIC__USERNAME
+          value: 'webmaster@kazer.es'
+        - name: SENTRY_DSN
+          valueFrom:
+            secretKeyRef:
+              name: ventas
+              key: sentry-dsn
+        - name: LOGZIO_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: ventas
+              key: logzio-token
+        - name: STRIPE__PUBLIC_KEY
+          valueFrom:
+            secretKeyRef:
+              name: ventas
+              key: stripe-public-key
+        - name: STRIPE__PRIVATE_KEY
+          valueFrom:
+            secretKeyRef:
+              name: ventas
+              key: stripe-private-key
+        - name: ELASTICSEARCH__HOST
+          value: 'elasticsearch'
+        - name: ELASTICSEARCH__INDEX
+          value: 'ventas'
+        - name: ELASTICSEARCH__PORT
+          value: "9200"
+        - name: LOCAL_PORT
+          value: "80"
+        - name: SERVER__HOST
+          value: '0.0.0.0'
+        - name: SERVER__PORT
+          value: "80"
+        image: registry.gitlab.com/joelsanchez/ventas-demo/ventas
+        name: ventas
+        ports:
+        - containerPort: 80
+        resources: {}
+        volumeMounts:
+        - mountPath: /storage
+          name: ventas
+      restartPolicy: Always
+      imagePullSecrets:
+        - name: gitlab
+      volumes:
+      - name: ventas
+        persistentVolumeClaim:
+          claimName: ventas
+status: {}
