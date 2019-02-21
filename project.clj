@@ -17,9 +17,9 @@
                  [org.clojure/tools.reader "1.3.0-alpha3"]
                  [com.google.guava/guava "21.0"]
 
-                 [ventas-clothing-theme "0.1.0-SNAPSHOT"]
-                 [ventas-stripe-plugin "0.1.0-SNAPSHOT"]
-                 [ventas-slider-plugin "0.1.0-SNAPSHOT"]
+                 [ventas-clothing-theme "0.1.1"]
+                 [ventas-stripe-plugin "0.1.1"]
+                 [ventas-slider-plugin "0.1.1"]
 
                  [com.datomic/datomic-pro "0.9.5697" :exclusions [org.slf4j/slf4j-nop org.slf4j/slf4j-log4j12
                                                                   org.fressian/fressian
@@ -27,7 +27,7 @@
                                                                   org.apache.httpcomponents/httpclient
                                                                   org.slf4j/slf4j-api]]
                  ;; [com.datastax.cassandra/cassandra-driver-core "3.3.1" :exclusions [org.slf4j/slf4j-api]]
-                 [ventas-core "0.0.12-SNAPSHOT" :exclusions [com.datomic/datomic-pro com.datomic/datomic-free]]]
+                 [ventas-core "0.0.13" :exclusions [com.datomic/datomic-pro com.datomic/datomic-free]]]
 
   :repositories {"my.datomic.com"
                  ~(merge
