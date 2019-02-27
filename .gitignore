@@ -27,7 +27,7 @@ pom.xml.asc
 /.travis/deploy_rsa.pub
 /.travis/deploy_rsa
 
-/resources/public/files/js/compiled/**
+/resources/public/files/js
 /resources/public/files/css
 /resources/public/files/lib
 /resources/public/files/img
