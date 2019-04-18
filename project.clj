@@ -25,10 +25,10 @@
                  [org.clojure/tools.reader "1.3.0-alpha3"]
                  [com.google.guava/guava "21.0"]
 
-                 [ventas-clothing-theme "0.1.3" :exclusions [ventas-core]]
+                 [ventas-clothing-theme "0.1.4-SNAPSHOT" :exclusions [ventas-core]]
                  [ventas-stripe-plugin "0.1.1" :exclusions [ventas-core]]
                  [ventas-slider-plugin "0.1.1" :exclusions [ventas-core]]
-                 [ventas-core "0.1.1"]]
+                 [ventas-core "0.1.2-SNAPSHOT"]]
 
   :repositories {"my.datomic.com"
                  ~(merge

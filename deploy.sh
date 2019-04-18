@@ -17,7 +17,7 @@ echo "Building..."
 lein clean
 shadow-cljs release app
 shadow-cljs release admin
-lein uberjar
+LEIN_SNAPSHOTS_IN_RELEASE=true lein uberjar
 
 echo "Creating and pushing docker images"
 cp target/uberjar/ventas.jar deploy
