@@ -20,10 +20,12 @@
    [ventas.plugins.stripe.api :as stripe.api]
    [ventas.entities.product :as product]
    [ventas.database.entity :as entity]
+   [ventas.storage :as storage]
    [clojure.java.io :as io]
    [ventas.utils.jar :as utils.jar]
    [ventas.paths :as paths]
-   [clojure.string :as str])
+   [clojure.string :as str]
+   [ventas.entities.file :as entities.file])
   (:import [java.util.jar JarFile JarEntry]))
 
 (defn- set-featured-entities! []
@@ -41,22 +43,20 @@
       (stripe.api/set-config! {:stripe-plugin/private-key private-key
                                :stripe-plugin/public-key public-key}))))
 
-(defn- extract-dir-from-jar
+(defn- extract-dir-from-jar-to-storage
   "Takes the string path of a jar, a dir name inside that jar and a destination
   dir, and copies the from dir to the to dir."
-  [^String jar-dir from to]
+  [^String jar-dir from]
   (let [jar (JarFile. jar-dir)]
     (doseq [^JarEntry file (enumeration-seq (.entries jar))]
       (when (and (.startsWith (.getName file) from)
                  (not (.isDirectory file)))
-        (let [filename (last (str/split (.getName file) #"\/"))
-              f        (f/file (io/file to) filename)]
-          (with-open [is (.getInputStream jar file)
-                      os (io/output-stream f)]
-            (io/copy is os)))))))
+        (let [filename (last (str/split (.getName file) #"\/"))]
+          (with-open [is (.getInputStream jar file)]
+            (storage/put-object filename is)))))))
 
 (defn copy-demo-images! []
-  (extract-dir-from-jar utils.jar/running-jar "ventas_demo/demo_images" (paths/resolve paths/storage)))
+  (extract-dir-from-jar-to-storage utils.jar/running-jar "ventas_demo/demo_images"))
 
 (defn- reset!
   "Returns everything to its default state, removing all data"
@@ -67,8 +67,8 @@
   (set-featured-entities!)
   (configure-stripe!)
   (copy-demo-images!)
-  (entities.image-size/clean-storage)
-  (entities.image-size/transform-all))
+  (entities.file/clean-storage)
+  (entities.file/transform-all))
 
 (defn start! []
   (-> (mount/only system/default-states)

@@ -17,7 +17,7 @@
       (throw result))))
 
 (alter-var-root #'*warn-on-reflection* (constantly true))
-(tn/set-refresh-dirs "dev/clj" "src/clj")
+(tn/set-refresh-dirs)
 
 (defn r [& subsystems]
   (let [states (system/get-states subsystems)]

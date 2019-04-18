@@ -1,3 +1,11 @@
+(comment
+  [com.datomic/datomic-pro "0.9.5697" :exclusions [org.slf4j/slf4j-nop org.slf4j/slf4j-log4j12
+                                                   org.fressian/fressian
+                                                   commons-codec
+                                                   org.apache.httpcomponents/httpclient
+                                                   org.slf4j/slf4j-api]]
+  [com.datastax.cassandra/cassandra-driver-core "3.3.1" :exclusions [org.slf4j/slf4j-api]])
+
 (defproject ventas-demo "0.0.1-SNAPSHOT"
   :description "Demo distribution of ventas"
 
@@ -17,17 +25,10 @@
                  [org.clojure/tools.reader "1.3.0-alpha3"]
                  [com.google.guava/guava "21.0"]
 
-                 [ventas-clothing-theme "0.1.1"]
+                 [ventas-clothing-theme "0.1.2-SNAPSHOT"]
                  [ventas-stripe-plugin "0.1.1"]
                  [ventas-slider-plugin "0.1.1"]
-
-                 [com.datomic/datomic-pro "0.9.5697" :exclusions [org.slf4j/slf4j-nop org.slf4j/slf4j-log4j12
-                                                                  org.fressian/fressian
-                                                                  commons-codec
-                                                                  org.apache.httpcomponents/httpclient
-                                                                  org.slf4j/slf4j-api]]
-                 ;; [com.datastax.cassandra/cassandra-driver-core "3.3.1" :exclusions [org.slf4j/slf4j-api]]
-                 [ventas-core "0.0.13" :exclusions [com.datomic/datomic-pro com.datomic/datomic-free]]]
+                 [ventas-core "0.1.0"]]
 
   :repositories {"my.datomic.com"
                  ~(merge
@@ -57,7 +58,9 @@
   :target-path "target/%s"
 
   :profiles {:dev {:repl-options {:init-ns repl
-                                  :nrepl-middleware [cider.piggieback/wrap-cljs-repl]
+                                  :nrepl-middleware [shadow.cljs.devtools.server.nrepl04/cljs-load-file
+                                                     shadow.cljs.devtools.server.nrepl04/cljs-eval
+                                                     shadow.cljs.devtools.server.nrepl04/cljs-select]
                                   :timeout 120000}
                    :dependencies [[cider/piggieback "0.3.9" :exclusions [org.clojure/clojurescript org.clojure/tools.logging]]
                                   [binaryage/devtools "0.9.10"]
