@@ -6,7 +6,7 @@
                                                    org.slf4j/slf4j-api]]
   [com.datastax.cassandra/cassandra-driver-core "3.3.1" :exclusions [org.slf4j/slf4j-api]])
 
-(defproject ventas-demo "0.0.1-SNAPSHOT"
+(defproject ventas-demo "0.0.1"
   :description "Demo distribution of ventas"
 
   :pedantic? :abort
