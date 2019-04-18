@@ -8,7 +8,6 @@
    [ventas-demo.handler :as handler]
    [ventas.config :as config]
    [ventas.core :as ventas]
-   [ventas.entities.image-size :as entities.image-size]
    [ventas.plugins.stripe.core]
    [ventas.plugins.slider.core]
    [ventas.search.indexing :as search.indexing]
@@ -21,9 +20,7 @@
    [ventas.entities.product :as product]
    [ventas.database.entity :as entity]
    [ventas.storage :as storage]
-   [clojure.java.io :as io]
    [ventas.utils.jar :as utils.jar]
-   [ventas.paths :as paths]
    [clojure.string :as str]
    [ventas.entities.file :as entities.file])
   (:import [java.util.jar JarFile JarEntry]))
@@ -77,6 +74,7 @@
   :done)
 
 (defn -main [& args]
+  (mount/start #'storage/storage-backend)
   (copy-demo-images!)
   (start!)
   (when (config/get :reset-on-restart)

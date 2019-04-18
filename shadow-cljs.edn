@@ -1,20 +1,5 @@
-{:source-paths ["../ventas-core/src/clj"
-                "../ventas-core/src/cljs"
-                "../ventas-core/src/cljc"
-                "../ventas-clothing-theme/src/clj"
-                "../ventas-clothing-theme/src/cljs"
-                "../ventas-slider-plugin/src/clj"
-                "../ventas-slider-plugin/src/cljs"
-                "../ventas-stripe-plugin/src/clj"
-                "../ventas-stripe-plugin/src/cljs"
-                "src/cljs"
-                "src/clj"]
+{:lein {:profile "+dev"}
  :nrepl {:port 4002}
- :dependencies [[ventas-clothing-theme "0.1.0-SNAPSHOT"]
-                [ventas-stripe-plugin "0.1.0-SNAPSHOT"]
-                [ventas-slider-plugin "0.1.0-SNAPSHOT"]
-                [ventas-core "0.0.12-SNAPSHOT"]
-                [binaryage/devtools "0.9.10"]]
  :builds {:app {:target :browser
                 :asset-path "files/js/app"
                 :output-to "resources/public/files/js/app/main.js"
