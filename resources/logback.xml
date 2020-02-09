@@ -17,10 +17,16 @@
         </filter>
     </appender>
 
-    <appender name="LogzioLogbackAppender" class="io.logz.logback.LogzioLogbackAppender">
-        <token>$LOGZIO_TOKEN</token>
-        <logzioUrl>https://listener.logz.io:8071</logzioUrl>
-        <logzioType>ventas</logzioType>
+    <appender name="sumoLogic" class="com.sumologic.logback.SumoLogicAppender">
+        <url>$SUMO_URL</url>
+        <sourceName>logs</sourceName>
+        <sourceCategory>demo/ventas</sourceCategory>
+        <messagesPerRequest>20</messagesPerRequest>
+        <encoder>
+            <Pattern>
+                %date{ISO8601,UTC} [%t] %-5p %c - %m%n
+            </Pattern>
+        </encoder>
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>INFO</level>
         </filter>
@@ -39,7 +45,7 @@
     <root level="INFO">
         <appender-ref ref="stdout"/>
         <appender-ref ref="sentry"/>
-        <appender-ref ref="LogzioLogbackAppender"/>
+        <appender-ref ref="sumoLogic"/>
     </root>
 
 </configuration>

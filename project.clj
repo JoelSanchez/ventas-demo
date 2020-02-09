@@ -20,7 +20,7 @@
                                                                 ch.qos.logback/logback-core
                                                                 ch.qos.logback/logback-classic
                                                                 com.fasterxml.jackson.core/jackson-core]]
-                 [io.logz.logback/logzio-logback-appender "1.0.20" :exclusions [org.slf4j/slf4j-api]]
+                 [com.sumologic.plugins.logback/sumologic-logback-appender "1.2" :exclusions [org.apache.httpcomponents/httpclient]]
                   ;; transitive
                  [org.clojure/tools.reader "1.3.0-alpha3"]
                  [com.google.guava/guava "21.0"]
