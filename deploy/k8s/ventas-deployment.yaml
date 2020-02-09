@@ -26,7 +26,10 @@ spec:
               name: ventas
               key: auth-secret
         - name: DATABASE__URL
-          value: 'datomic:dev://datomic:4334/ventas'
+          valueFrom:
+            secretKeyRef:
+              name: ventas
+              key: database-url
         - name: DATOMIC__PASSWORD
           valueFrom:
             secretKeyRef:

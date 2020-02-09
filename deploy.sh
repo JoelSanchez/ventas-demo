@@ -15,6 +15,7 @@ cd ../ventas-demo
 
 echo "Building..."
 lein clean
+npm install
 shadow-cljs release app
 shadow-cljs release admin
 LEIN_SNAPSHOTS_IN_RELEASE=true lein uberjar

@@ -1,3 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: elasticsearch
+  labels:
+    app: ventas
+    tier: elasticsearch
+spec:
+  selector:
+    app: ventas
+    tier: elasticsearch
+  ports:
+  - name: "9200"
+    port: 9200
+  - name: "9300"
+    port: 9300
+
+---
+
 apiVersion: apps/v1beta1         # API version of kubernetes in which `StatefulSet` is available. For Kubernetes 1.8.7 its apps/v1beta1
 kind: StatefulSet                # Type of resource that we are creating
 metadata:                        # Holds metadata for this resource
