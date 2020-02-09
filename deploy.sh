@@ -2,22 +2,8 @@
 
 set -e
 
-echo "Installing artifacts..."
-cd ../ventas-core
-lein install
-cd ../ventas-stripe-plugin
-lein install
-cd ../ventas-slider-plugin
-lein install
-cd ../ventas-clothing-theme
-lein install
-cd ../ventas-demo
-
 echo "Building..."
 lein clean
-npm install
-shadow-cljs release app
-shadow-cljs release admin
 LEIN_SNAPSHOTS_IN_RELEASE=true lein uberjar
 
 echo "Creating and pushing docker images"
